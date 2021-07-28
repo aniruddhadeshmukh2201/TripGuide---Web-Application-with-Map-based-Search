@@ -1,0 +1,50 @@
+<% include ../partials/header%>
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center">Edit <%= spot.name%></h1>
+        <div style="width: 40%; margin: 25px auto;">
+            <form action="/spots/<%= spot._id%>?_method=PUT" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <input class="form-control" type="text" value="<%= spot.name%>" name="spot[name]">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="number" value="<%=spot.price%>" name="spot[price]" min="0.01" step="0.01">
+            </div>
+            
+            <div class="form-group">
+                <input class="form-control" type="text" value="<%= spot.description%>" name="spot[description]">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="text" value="<%= spot.location%>" name="spot[location]">
+            </div>
+            <div class="form-group">
+                <div class="mb-3">
+                    <div class="form-file">
+                        <input type="file" class="form-file-input" id="image" name="image" multiple>
+                        <label class="form-file-label" for="image">
+                            <span class="form-file-text ">Add more image(s)...</span>
+                            <span class="form-file-button">Browse</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mb-4">
+                <% spot.images.forEach(function(img, i) {  %>
+
+                <img src="<%=img.thumbnail %>" class="img-thumbnail" alt="">
+                <div class="form-check-inline">
+                    <input type="checkbox" id="image-<%=i%>" name="deleteImages[]" value="<%=img.filename%>">
+                    <label for="image-<%=i%>">Delete?</label>
+                </div>
+                <% })%>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-lg btn-primary btn-block">Submit</button>
+            </div>
+        </form>
+         <a href="/spots/<%= spot._id%>">go back!!</a>
+        </div>
+       
+    </div>
+</div>
+<% include ../partials/footer%>
